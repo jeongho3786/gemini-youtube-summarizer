@@ -43,17 +43,28 @@ function escapeHtml(str) {
   return str.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+const VIDEO_ID_PATTERN = /^[\w-]{6,20}$/;
+
+// 추출한 값이 유튜브 영상 ID 형식(영문자/숫자/-/_)을 벗어나면 null을 반환해
+// href에 안전하지 않은 문자열이 그대로 삽입되는 것을 막는다.
 function extractVideoId(url) {
   try {
     const u = new URL(url);
-    if (u.hostname.includes("youtu.be")) return u.pathname.slice(1);
+    let candidate = null;
 
-    const v = u.searchParams.get("v");
-    if (v) return v;
+    if (u.hostname.includes("youtu.be")) {
+      candidate = u.pathname.slice(1);
+    } else {
+      const v = u.searchParams.get("v");
+      if (v) {
+        candidate = v;
+      } else {
+        const shortsMatch = u.pathname.match(/\/shorts\/([\w-]+)/);
+        if (shortsMatch) candidate = shortsMatch[1];
+      }
+    }
 
-    const shortsMatch = u.pathname.match(/\/shorts\/([\w-]+)/);
-    if (shortsMatch) return shortsMatch[1];
-
+    if (candidate && VIDEO_ID_PATTERN.test(candidate)) return candidate;
   } catch (e) {
     // 잘못된 URL이면 무시
   }
@@ -181,6 +192,10 @@ async function init() {
     lastSummaryText = storedSummary;
     els.resultText.innerHTML = renderSummaryHtml(storedSummary, lastSummaryVideoUrl || "");
     els.result.classList.remove("hidden");
+
+    if (lastSummaryVideoUrl && !extractVideoId(lastSummaryVideoUrl)) {
+      showStatus("이전 요약을 불러왔지만, 영상 주소 형식이 예상과 달라 타임스탬프 링크는 표시되지 않습니다.", false);
+    }
 
     log("이전에 저장된 요약 결과를 복원", { textLength: storedSummary.length });
   }
@@ -319,7 +334,12 @@ async function summarize() {
     els.resultText.innerHTML = renderSummaryHtml(text, videoUrl);
     els.result.classList.remove("hidden");
 
-    hideStatus();
+    if (extractVideoId(videoUrl)) {
+      hideStatus();
+    } else {
+      log("영상 ID 추출 실패 - 타임스탬프 링크 비활성화", videoUrl);
+      showStatus("요약은 완료됐지만, 영상 주소에서 올바른 영상 ID를 찾지 못해 타임스탬프 링크는 만들지 않았습니다.", false);
+    }
 
     // 사이드바를 닫았다 다시 열어도 새로 요약하기 전까지는 이 결과가 그대로 남아있도록 저장.
     // 캐싱 실패는 요약 자체의 실패가 아니므로 별도로 조용히 처리한다.
