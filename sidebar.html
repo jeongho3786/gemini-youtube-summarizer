@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>유튜브 요약 (Gemini)</title>
+    <link rel="stylesheet" href="sidebar.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>🎬 유튜브 요약</h1>
+        <button id="settings-toggle" class="icon-btn" title="설정" aria-label="설정">⚙️</button>
+      </header>
+
+      <section id="settings-panel" class="settings-panel hidden">
+        <label for="api-key">Gemini API 키</label>
+        <input type="password" id="api-key" placeholder="AIza..." />
+
+        <label for="model">모델</label>
+        <input type="text" id="model" placeholder="gemini-3.6-flash" />
+
+        <button id="save-settings-btn">설정 저장</button>
+        <p class="hint">
+          API 키는 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a>에서 무료로 발급받을 수 있습니다.
+        </p>
+      </section>
+
+      <div class="field">
+        <label for="video-url">유튜브 주소</label>
+        <input type="text" id="video-url" placeholder="https://www.youtube.com/watch?v=..." />
+        <p class="hint">탭에서 유튜브 영상을 열면 자동으로 채워집니다.</p>
+      </div>
+
+      <button id="summarize-btn" class="primary-btn">요약하기</button>
+
+      <div id="status" class="status hidden"></div>
+
+      <section id="result" class="result hidden">
+        <div class="result-header">
+          <span>요약 결과</span>
+          <button id="copy-btn" class="icon-btn" title="복사" aria-label="복사">📋</button>
+        </div>
+
+        <div id="result-text"></div>
+      </section>
+    </div>
+
+    <script src="sidebar.js"></script>
+  </body>
+</html>

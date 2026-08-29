@@ -1,0 +1,268 @@
+:root {
+  --accent: #d1616b;
+  --accent-soft: #f7e2e4;
+  --accent-soft-hover: #f0cdd1;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --border: #e2e2e2;
+  --bg-soft: #fafafa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  min-width: 260px;
+  width: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Malgun Gothic", sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  background: #fff;
+}
+
+.container {
+  height: 100%;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+h1 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.icon-btn:hover {
+  background: var(--bg-soft);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.hint {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-soft);
+  flex-shrink: 0;
+}
+
+.settings-panel .hint a {
+  color: var(--accent);
+}
+
+#save-settings-btn {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.status {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.status.error {
+  color: #d33;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.result {
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-soft);
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+#result-text {
+  font-size: 15px;
+  line-height: 1.7;
+  letter-spacing: -0.1px;
+}
+
+#result-text p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+#result-text ol {
+  list-style: none;
+  counter-reset: topic;
+  margin: 0;
+  padding: 0;
+}
+
+#result-text ol > li {
+  counter-increment: topic;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 18px;
+  font-weight: 700;
+  font-size: 15.5px;
+}
+
+#result-text ol > li::before {
+  content: counter(topic);
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 21px;
+  text-align: center;
+}
+
+#result-text ul {
+  margin: 8px 0 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+#result-text ul > li {
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 8px;
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+#result-text ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+#result-text strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+#result-text a {
+  display: inline-block;
+  margin-left: 2px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+#result-text a:hover {
+  background: var(--accent-soft-hover);
+}

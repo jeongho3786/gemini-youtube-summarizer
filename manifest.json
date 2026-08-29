@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "유튜브 요약 (Gemini)",
+  "version": "1.0.0",
+  "description": "Gemini API로 유튜브 영상 내용을 한국어로 요약해주는 확장 프로그램",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "gemini-youtube-summarizer@firefox-extension",
+      "strict_min_version": "115.0",
+      "data_collection_permissions": {
+        "required": ["none"],
+        "optional": []
+      }
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "action": {
+    "default_title": "유튜브 요약 (Gemini)",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "side_panel": {
+    "default_path": "sidebar.html"
+  },
+
+  "sidebar_action": {
+    "default_panel": "sidebar.html",
+    "default_title": "유튜브 요약 (Gemini)",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
+  },
+
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
+  },
+
+  "permissions": ["storage", "sidePanel"],
+  "host_permissions": [
+    "https://generativelanguage.googleapis.com/*",
+    "*://*.youtube.com/*"
+  ]
+}
